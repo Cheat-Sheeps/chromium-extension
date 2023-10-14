@@ -1,11 +1,23 @@
 import * as Scraper from "./scraper";
 import * as Api from "./api";
+import id = chrome.runtime.id;
 
-async function getCurrentTab() {
-  let queryOptions = { active: true, lastFocusedWindow: true };
-  let [tab] = await chrome.tabs.query(queryOptions);
-  return tab.url;
-}
+console.log("sfhashfsdjkfhsjkh")
 
-Scraper.getHTMLText(await getCurrentTab());
-Api.request(Scraper.getHTMLText(await getCurrentTab()));
+
+const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+const test = await chrome.scripting.executeScript({
+  target: {
+    tabId: tab.id,
+    allFrames: true
+  },
+  func: () => {
+    return document.querySelector("body")
+  }
+});
+
+console.log(test)
+
+//
+// Scraper.getHTMLText(await getCurrentTab());
+// Api.request(Scraper.getHTMLText(await getCurrentTab()));
