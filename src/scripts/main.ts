@@ -1,3 +1,3 @@
-import * as Scraper from "./scraper"
+import * as Scraper from "./scraper";
 
-Scraper.test()
+Scraper.getHTMLText(document.body.querySelectorAll("*"));
