@@ -11,6 +11,8 @@ function getHTMLText(url: string) {
         }
     )
     .catch(console.error);
+    return "error";
 }
+
 
 export { getHTMLText }

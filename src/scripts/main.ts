@@ -1,4 +1,5 @@
 import * as Scraper from "./scraper";
+import * as Api from "./api";
 
 async function getCurrentTab() {
   let queryOptions = { active: true, lastFocusedWindow: true };
@@ -7,3 +8,4 @@ async function getCurrentTab() {
 }
 
 Scraper.getHTMLText(await getCurrentTab());
+Api.request(Scraper.getHTMLText(await getCurrentTab()));
