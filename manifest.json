@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "Cheat Sheeps Extensions",
+    "description": "Extension to help you detect phishing websites",
+    "version": "1.0",
+    "action": {
+      "default_popup": "cheat-sheep-extension.html",
+      "default_icon": "ramen-bol-dessin.png"
+    }
+  }
