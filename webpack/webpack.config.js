@@ -26,6 +26,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 {from: "./src/popup.html", to: ".", context: "."},
+                {from: "./src/popup.css", to: ".", context: "."},
                 {from: "./src/assets", to: ".", context: "."},
                 {from: ".", to: ".", context: "public"}
             ]

@@ -1,7 +1,22 @@
 <html lang="en">
+  <head>
+    <link rel="stylesheet" href="popup.css">
+  </head>
   <body>
-    <h1>Hello Extensions</h1>
 
-    <script src="main.js"></script>
+  <section id="chart-wrapper">
+    <h1 id="assessment"></h1>
+  </section>
+
+  <div id="overlay">
+    <section id="loading-indicator">
+      <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <p id="loadingtext">Loading analytics</p>
+    </section>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="main.js"></script>
   </body>
 </html>
