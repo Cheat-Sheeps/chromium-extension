@@ -1,14 +1,41 @@
 import axios from 'axios';
 
-const url = 'https://www.premierleague.com/stats/top/players/goals?se=-1&cl=-1&iso=-1&po=-1?se=-1'; // URL we're scraping
-const AxiosInstance = axios.create(); // Create a new Axios Instance
+const {convert} = require('html-to-text');
 
-// Send an async HTTP Get request to the url
+const url = 'https://www.npmjs.com/package/axios#features';
+
+const AxiosInstance = axios.create();
+
+var listHTMLText:string[] = [];
+
+// document.querySelectorAll("*");
+
 AxiosInstance.get(url)
   .then(
     response => {
-      const html = response.data; // Get the HTML from the HTTP request
-      console.log(html);
+      const html = response.data;
+      getHTMLText(html);
+    //   document.querySelectorAll("*");// Get the HTML from the HTTP request
+    //   console.log(html); // Print the HTML
     }
   )
   .catch(console.error);
+
+function getHTMLText(elements: Element[]) {
+    console.log(elements);
+    
+    for(let element of elements) {
+        console.log(element.innerHTML);
+        if(element.innerHTML != undefined) {
+            listHTMLText.push(convert(element.innerHTML));
+        }
+        
+    }
+    
+    console.log(listHTMLText);
+    return listHTMLText
+}
+
+
+// Send an async HTTP Get request to the url
+

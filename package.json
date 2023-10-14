@@ -2,7 +2,8 @@
   "dependencies": {
     "axios": "^1.5.1",
     "cheerio": "^1.0.0-rc.12",
-    "chrome-types": "^0.1.231"
+    "chrome-types": "^0.1.231",
+    "html-to-text": "^9.0.5"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -12,7 +13,7 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "start": "tsc && node dist/index.js",
-    "dev": "node src/index.ts"
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
   }
 }
