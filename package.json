@@ -1,18 +1,25 @@
 {
+  "name": "fishing-monitor-extension",
+  "version": "1.0.0",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.5.1",
     "cheerio": "^1.0.0-rc.12",
-    "chrome-types": "^0.1.231"
+    "chrome-types": "^0.1.231",
+    "copy-webpack-plugin": "^11.0.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.32",
     "nodemon": "^3.0.1",
+    "ts-loader": "^9.5.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "webpack-cli": "^5.1.4"
   },
   "scripts": {
+    "build": "webpack --config webpack/webpack.config.js",
     "start": "tsc && node dist/index.js",
-    "dev": "node src/index.ts"
+    "dev": "node src/scripts/scraper.ts"
   }
 }
