@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
+    "@types/chrome": "^0.0.246",
     "axios": "^1.5.1",
     "cheerio": "^1.0.0-rc.12",
+    "chrome": "^0.1.0",
     "chrome-types": "^0.1.231",
     "copy-webpack-plugin": "^11.0.0",
     "html-to-text": "^9.0.5"

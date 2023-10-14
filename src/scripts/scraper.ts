@@ -1,15 +1,16 @@
-function getHTMLText(elements: NodeListOf<Element>) {
+import axios from 'axios';
+function getHTMLText(url: string) {
 
-    var listHTMLText:string[] = [];
-    const {convert} = require('html-to-text');
-
-    for(let i = 0; i < elements.length; i++) {
-        console.log(elements[i].innerHTML);
-        if(elements[i].innerHTML != undefined) {
-            listHTMLText.push(convert(elements[i].innerHTML));
+    const AxiosInstance = axios.create();
+    const { convert } = require('html-to-text');   
+    AxiosInstance.get(url)
+    .then(
+        response => {
+            const html = response.data;
+            return convert(html);
         }
-    }
-    return listHTMLText
+    )
+    .catch(console.error);
 }
 
 export { getHTMLText }
