@@ -20,11 +20,13 @@ const percentage_bar = document.querySelector(".percent-bar") as HTMLElement;
 const section2 = document.querySelector(".section-2") as HTMLElement;
 const icon = document.querySelector(".iconcheck") as HTMLElement;
 const bQuit = document.querySelector(".b-quit") as HTMLElement;
+const bRetry = document.querySelector(".b-retry") as HTMLElement;
 const bContinueGreen = document.querySelector(
 	".b-continue-green"
 ) as HTMLElement;
 const bContinueRed = document.querySelector(".b-continue-red") as HTMLElement;
 const spinner = document.querySelector(".section-2-load") as HTMLElement;
+const error = document.querySelector(".section-2-error") as HTMLElement;
 
 await main();
 
@@ -38,9 +40,24 @@ async function main() {
 	}
 
 	showTip();
+
+	addListeners(url);
+	await check_website(url);
+}
+
+async function check_website(url: string) {
 	showSpinner();
-	await check_website(getText(), url);
-	hideSpinner();
+	if (await query_api(getText(), url)) {
+		hideSpinner();
+	} else {
+		showError();
+	}
+}
+
+function addListeners(url: string) {
+	bRetry.addEventListener("click", async () => {
+		await check_website(url);
+	});
 
 	bQuit.addEventListener("click", () => {
 		window.close();
@@ -58,11 +75,19 @@ async function main() {
 function showSpinner() {
 	section2.style.display = "none";
 	spinner.style.display = "flex";
+	error.style.display = "none";
 }
 
 function hideSpinner() {
 	section2.style.display = "flex";
 	spinner.style.display = "none";
+	error.style.display = "none";
+}
+
+function showError() {
+	section2.style.display = "none";
+	spinner.style.display = "none";
+	error.style.display = "flex";
 }
 
 function showTip() {
@@ -89,7 +114,7 @@ function getText() {
 	return text;
 }
 
-async function check_website(text: string, url: string) {
+async function query_api(text: string, url: string) {
 	const audit = await Api.auditWebsite(text, url);
 
 	if (!audit.success) {
@@ -126,4 +151,6 @@ async function check_website(text: string, url: string) {
 			bContinueRed.style.display = "none";
 		}
 	}
+
+	return audit.success;
 }

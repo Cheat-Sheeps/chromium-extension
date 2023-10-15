@@ -159,6 +159,40 @@
 				transform: translateY(-2px);
 			}
 
+      .button-yellow {
+				appearance: none;
+				background-color: transparent;
+				border: 2px solid #FFC85E;
+				border-radius: 15px;
+				box-sizing: border-box;
+				color: #FFC85E;
+				cursor: pointer;
+				display: inline-block;
+				font-family: Roobert, -apple-system, BlinkMacSystemFont,
+					"Segoe UI", Helvetica, Arial, sans-serif,
+					"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+				font-size: 16px;
+				font-weight: 600;
+				line-height: normal;
+				margin: 0;
+				min-width: 0;
+				outline: none;
+				padding: 8px 24px;
+				text-align: center;
+				text-decoration: none;
+				transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+				user-select: none;
+				-webkit-user-select: none;
+				touch-action: manipulation;
+				will-change: transform;
+			}
+
+			.button-yellow:hover {
+				color: #fff;
+				background-color: #FFC85E;
+				transform: translateY(-2px);
+			}
+
 			.button:active {
 				box-shadow: none;
 				transform: translateY(0);
@@ -198,6 +232,16 @@
 
       .section-2-load {
         display: flex;
+        flex-direction: column;
+        justify-content: top;
+        align-items: center;
+        margin: 0px;
+        padding: 40px;
+        height: 216px;
+      }
+
+      .section-2-error {
+        display: none;
         flex-direction: column;
         justify-content: top;
         align-items: center;
@@ -274,15 +318,15 @@
       <div class="section-2-load">
         <span class="loader"></span>
       </div>
+      <div class="section-2-error">
+        <p style="font-family: JetBrains Mono, sans-serif; font-size: 24px; font-style: normal; font-weight: 800; line-height: normal; color: #FF8086;">An error occured.</p>
+        <button class="b-retry button button-yellow">Retry</button>
+      </div>
 			<div class="section-3">
 				<img class="imgAmpoule" src="light.png" alt="light" />
 				<div>
-					<h3 class="tipsName">Check links before you click</h3>
-					<p class="tipsDescription">
-						Links can easily be disguised as something they’re not
-						so it’s best to double check before you click on a
-						hyperlink.
-					</p>
+					<h3 class="tipsName"></h3>
+					<p class="tipsDescription"></p>
 				</div>
 			</div>
 		</div>
