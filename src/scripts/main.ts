@@ -23,6 +23,7 @@ const bContinueGreen = document.querySelector(
 	".b-continue-green"
 ) as HTMLElement;
 const bContinueRed = document.querySelector(".b-continue-red") as HTMLElement;
+const loader = document.querySelector(".loader") as HTMLElement;
 
 await main();
 
@@ -34,7 +35,12 @@ async function main() {
     url = tab.url;
   }
 
+  section2.style.display = "none";
+  loader.style.display = "flex";
   await check_website(getText(), url);
+  section2.style.display = "flex";
+  loader.style.display = "none";
+
 }
 
 function getText() {
@@ -54,6 +60,8 @@ function getText() {
 
 async function check_website(text: string, url: string) {
 	const audit = await Api.auditWebsite(text, url);
+
+	
 
 	// console.log(text, display, audit)
 	if (!audit.success) {

@@ -2,10 +2,12 @@
 
 <head>
   <style>
-    body, html{
+    body,
+    html {
       background-color: #00000000;
       margin: 0px;
     }
+
     .popup {
       display: flex;
       flex-direction: column;
@@ -152,9 +154,9 @@
       transform: translateY(0);
     }
 
-    .section-3{
+    .section-3 {
       display: flex;
-      background: #DFDFDF; 
+      background: #DFDFDF;
       padding: 25px;
       align-items: center;
       gap: 25px;
@@ -162,30 +164,67 @@
       margin: 0px;
     }
 
-    .tipsName{
+    .tipsName {
       color: #000;
       font-family: JetBrains Mono, sans-serif;
       font-size: 12px;
       font-style: normal;
       font-weight: 800;
-      line-height: normal; 
+      line-height: normal;
     }
-    .tipsDescription{
+
+    .tipsDescription {
       color: #000;
       font-family: JetBrains Mono, sans-serif;
       font-size: 10px;
       font-style: normal;
       font-weight: 400;
-      line-height: normal; 
+      line-height: normal;
     }
 
-    .iconcheck{
+    .iconcheck {
       height: 65px;
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .loader::after,
+    .loader::before {
+      content: '';
+      box-sizing: border-box;
+      width: 48px;
+      height: 48px;
+      border: 2px solid #FF8086;
+      position: absolute;
+      left: 0;
+      top: 0;
+      animation: rotation 2s ease-in-out infinite alternate;
+    }
+
+    .loader::after {
+      border-color: #7edcc6;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
 
 <body>
+  
   <div class="popup">
     <div class="section-1">
       <img class="imgMouton" src="mouton 1.png" alt="mouton">
@@ -203,11 +242,13 @@
         <button class="b-continue-red button button-red">Continue</button>
       </div>
     </div>
+    <span class="loader"></span>
     <div class="section-3">
       <img class="imgAmpoule" src="light.png" alt="light">
       <div>
         <h3 class="tipsName">Check links before you click</h3>
-        <p class="tipsDescription">Links can easily be disguised as something they’re not so it’s best to double check before you click on a
+        <p class="tipsDescription">Links can easily be disguised as something they’re not so it’s best to double check
+          before you click on a
           hyperlink.</p>
       </div>
     </div>

@@ -17,6 +17,8 @@ async function auditWebsite(pageContent: string, url: string){
                 }
             }
         )
+        
+
     } catch(e) {
         return {
             success: false,
