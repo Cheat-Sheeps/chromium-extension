@@ -33,11 +33,9 @@ async function auditWebsite(pageContent: string, url: string){
         }
     }
 
-    console.log("body response", await response.json())
-
     return {
         success: true,
-        assessment: response.body,
+        assessment: await response.json(),
         url: url
     }
 }

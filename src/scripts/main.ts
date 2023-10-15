@@ -19,10 +19,14 @@ for (let query of contentQueries) {
 
 text = text.replace(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gm, "")
 
-const display = document.querySelector("#assessment")
-const overlay = document.querySelector("#overlay") as HTMLElement
-const overlayText = document.querySelector("#overlay p") as HTMLElement
-const overlaySpinner = document.querySelector("#overlay") as HTMLElement
+const percentage = document.querySelector(".percent") as HTMLElement
+const percentage_bar = document.querySelector(".percent-bar") as HTMLElement
+const section2 = document.querySelector(".section-2") as HTMLElement
+const icon = document.querySelector(".iconcheck") as HTMLElement
+
+const bQuit = document.querySelector(".b-quit") as HTMLElement
+const bContinueGreen = document.querySelector(".b-continue-green") as HTMLElement
+const bContinueRed = document.querySelector(".b-continue-red") as HTMLElement
 
 let url: string | null = ""
 
@@ -34,8 +38,37 @@ const audit = await Api.auditWebsite(text, url)
 
 // console.log(text, display, audit)
 if (!audit.success) {
-  overlayText.innerHTML = "Failed to load."
+  section2.style.display = "none"
 } else {
-  display.innerHTML = `${audit.assessment}`
-  overlay.style.opacity = "0"
+  console.log(section2)
+  section2.style.display = "flex"
+  let percent = (audit.assessment * 100).toFixed(1)
+  percentage.innerText = percent + "%"
+  percentage_bar.style.width = percent + "%"
+
+  if (audit.assessment > .5 && audit.assessment < .75) {
+    percentage_bar.style.backgroundColor = "#FFC85E"
+    percentage.style.color = "#FFC85E"
+    icon.setAttribute("src", "yellow.svg")
+
+    bQuit.style.display = "inline-block"
+    bContinueGreen.style.display = "none"
+    bContinueRed.style.display = "inline-block"
+  } else if (audit.assessment > .75) {
+    percentage_bar.style.backgroundColor = "#FF8086"
+    percentage.style.color = "#FF8086"
+    icon.setAttribute("src", "red.svg")
+    
+    bQuit.style.display = "inline-block"
+    bContinueGreen.style.display = "none"
+    bContinueRed.style.display = "inline-block"
+  } else {
+    percentage_bar.style.backgroundColor = "#5EAD8F"
+    percentage.style.color = "#5EAD8F"
+    icon.setAttribute("src", "green.svg")
+    
+    bQuit.style.display = "none"
+    bContinueGreen.style.display = "inline-block"
+    bContinueRed.style.display = "none"
+  }
 }

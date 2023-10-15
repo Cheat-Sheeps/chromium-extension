@@ -11,9 +11,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      /* make border inner border  */
-      border: 3px solid #4A4A4A;
-      
       width: 350px;
       margin: 0px;
       max-height: 600px;
@@ -74,28 +71,12 @@
       background: #BCB0B0;
     }
 
-    .percent-bar-green {
+    .percent-bar {
       width: 50%;
       flex-shrink: 0;
       align-self: stretch;
       border-radius: 30px;
       background: #5EAD8F;
-    }
-
-    .percent-bar-yellow {
-      width: 50%;
-      flex-shrink: 0;
-      align-self: stretch;
-      border-radius: 30px;
-      background: #FFC85E;
-    }
-
-    .percent-bar-red {
-      width: 50%;
-      flex-shrink: 0;
-      align-self: stretch;
-      border-radius: 30px;
-      background: #FF8086;
     }
 
     .button-green {
@@ -138,17 +119,15 @@
       font-weight: 600;
       line-height: normal;
       margin: 0;
-      min-height: 60px;
       min-width: 0;
       outline: none;
-      padding: 16px 24px;
+      padding: 8px 24px;
       text-align: center;
       text-decoration: none;
       transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
-      width: 100%;
       will-change: transform;
     }
 
@@ -164,7 +143,7 @@
 
     .button-red:hover {
       color: #fff;
-      background-color: #5EAD8F;
+      background-color: #FF8086;
       transform: translateY(-2px);
     }
 
@@ -216,9 +195,13 @@
       <img class="iconcheck" src="green.svg" alt="mouton">
       <p class="percent">12.0%</p>
       <div class="bar">
-        <div class="percent-bar-green"></div>
+        <div class="percent-bar"></div>
       </div>
-      <button class="button button-green">Continue</button>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <button class="b-quit button button-green">Quit</button>
+        <button class="b-continue-green button button-green">Continue</button>
+        <button class="b-continue-red button button-red">Continue</button>
+      </div>
     </div>
     <div class="section-3">
       <img class="imgAmpoule" src="light.png" alt="light">
