@@ -27,6 +27,8 @@ const bContinueRed = document.querySelector(".b-continue-red") as HTMLElement;
 
 await main();
 
+// ---------------------------------------------------------------------------------------------
+
 async function main() {
 	let url: string = "";
 
@@ -68,7 +70,6 @@ async function check_website(text: string, url: string) {
 	if (!audit.success) {
 		section2.style.display = "none";
 	} else {
-		console.log(section2);
 		section2.style.display = "flex";
 		let percent = (audit.assessment * 100).toFixed(1);
 		percentage.innerText = percent + "%";
