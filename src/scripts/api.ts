@@ -46,6 +46,10 @@ async function auditWebsite(pageContent: string[], url: string) {
                 is_blacklisted: boolean;
 				is_whitelisted: boolean;
 				median: number;
+				percent_per_string: {
+					word: string;
+					percent: number;
+				}[];
             }
         },
 		url: url,

@@ -159,13 +159,13 @@
 				transform: translateY(-2px);
 			}
 
-      .button-yellow {
+			.button-yellow {
 				appearance: none;
 				background-color: transparent;
-				border: 2px solid #FFC85E;
+				border: 2px solid #ffc85e;
 				border-radius: 15px;
 				box-sizing: border-box;
-				color: #FFC85E;
+				color: #ffc85e;
 				cursor: pointer;
 				display: inline-block;
 				font-family: Roobert, -apple-system, BlinkMacSystemFont,
@@ -189,7 +189,7 @@
 
 			.button-yellow:hover {
 				color: #fff;
-				background-color: #FFC85E;
+				background-color: #ffc85e;
 				transform: translateY(-2px);
 			}
 
@@ -230,25 +230,25 @@
 				height: 65px;
 			}
 
-      .section-2-load {
-        display: flex;
-        flex-direction: column;
-        justify-content: top;
-        align-items: center;
-        margin: 0px;
-        padding: 40px;
-        height: 216px;
-      }
+			.section-2-load {
+				display: flex;
+				flex-direction: column;
+				justify-content: top;
+				align-items: center;
+				margin: 0px;
+				padding: 40px;
+				height: 216px;
+			}
 
-      .section-2-error {
-        display: none;
-        flex-direction: column;
-        justify-content: top;
-        align-items: center;
-        margin: 0px;
-        padding: 40px;
-        height: 216px;
-      }
+			.section-2-error {
+				display: none;
+				flex-direction: column;
+				justify-content: top;
+				align-items: center;
+				margin: 0px;
+				padding: 40px;
+				height: 216px;
+			}
 
 			.loader {
 				width: 65px;
@@ -263,7 +263,7 @@
 				box-sizing: border-box;
 				width: 65px;
 				height: 65px;
-				border: 2px solid #FFC85E;
+				border: 2px solid #ffc85e;
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -284,6 +284,61 @@
 					transform: rotate(360deg);
 				}
 			}
+
+			.string-list {
+				display: none;
+				height: 296px;
+				overflow-y: auto;
+			}
+
+			.string-list ul {
+				list-style-type: none;
+				padding: 0px;
+				margin: 0px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+			}
+
+			.string-list li:first-child {
+				border-top: none;
+			}
+
+			.string-list li {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				border-top: #615e5e 2px solid;
+				padding: 10px 0px;
+			}
+
+			.string-list h3 {
+				color: #615e5e;
+				font-family: JetBrains Mono, sans-serif;
+				font-size: 18px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: normal;
+				margin: 0px;
+			}
+
+			.string-list p {
+				color: #615e5e;
+				font-family: JetBrains Mono, sans-serif;
+				font-size: 20px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: normal;
+				margin: 0px;
+			}
+
+			.info-button:hover{
+				opacity: 0.5;
+			}
 		</style>
 	</head>
 
@@ -295,6 +350,16 @@
 			</div>
 			<div class="section-2">
 				<img class="iconcheck" src="green.svg" alt="mouton" />
+				<!-- make mouse a pointer -->
+				<img class="info-button" src="info.svg" alt="info" style="
+					width: 40px;
+					height: 40px;
+					position: absolute;
+					top: 135px;
+					right: 20px;
+					color: #ffc85e;
+					cursor: pointer;
+				">
 				<p class="percent">12.0%</p>
 				<div class="bar">
 					<div class="percent-bar"></div>
@@ -315,13 +380,30 @@
 					</button>
 				</div>
 			</div>
-      <div class="section-2-load">
-        <span class="loader"></span>
-      </div>
-      <div class="section-2-error">
-        <p style="font-family: JetBrains Mono, sans-serif; font-size: 24px; font-style: normal; font-weight: 800; line-height: normal; color: #FF8086;">An error occured.</p>
-        <button class="b-retry button button-yellow">Retry</button>
-      </div>
+			<div class="section-2-load">
+				<span class="loader"></span>
+			</div>
+			<div class="section-2-error">
+				<p
+					style="
+						font-family: JetBrains Mono, sans-serif;
+						font-size: 24px;
+						font-style: normal;
+						font-weight: 800;
+						line-height: normal;
+						color: #ff8086;
+					"
+				>
+					An error occured.
+				</p>
+				<button class="b-retry button button-yellow">Retry</button>
+			</div>
+			<div class="section-2-list string-list">
+				<!-- list of strings with percent -->
+				<ul>
+
+				</ul>
+			</div>
 			<div class="section-3">
 				<img class="imgAmpoule" src="light.png" alt="light" />
 				<div>

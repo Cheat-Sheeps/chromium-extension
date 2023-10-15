@@ -27,6 +27,10 @@ const bContinueGreen = document.querySelector(
 const bContinueRed = document.querySelector(".b-continue-red") as HTMLElement;
 const spinner = document.querySelector(".section-2-load") as HTMLElement;
 const error = document.querySelector(".section-2-error") as HTMLElement;
+const infoButton = document.querySelector(".info-button") as HTMLElement;
+const section2list = document.querySelector(".section-2-list") as HTMLElement;
+
+let list_of_words: { word: string; percent: number }[] = [];
 
 await main();
 
@@ -70,24 +74,60 @@ function addListeners(url: string) {
 	bContinueRed.addEventListener("click", () => {
 		window.close();
 	});
+
+	infoButton.addEventListener("click", () => {
+		showList(list_of_words);
+	});
 }
 
 function showSpinner() {
 	section2.style.display = "none";
 	spinner.style.display = "flex";
 	error.style.display = "none";
+	section2list.style.display = "none";
 }
 
 function hideSpinner() {
 	section2.style.display = "flex";
 	spinner.style.display = "none";
 	error.style.display = "none";
+	section2list.style.display = "none";
 }
 
 function showError() {
 	section2.style.display = "none";
 	spinner.style.display = "none";
 	error.style.display = "flex";
+	section2list.style.display = "none";
+}
+
+function showList(list: { word: string; percent: number }[]) {
+	section2.style.display = "none";
+	spinner.style.display = "none";
+	error.style.display = "none";
+	section2list.style.display = "block";
+
+	let ul = document.createElement("ul");
+
+	for (let item of list) {
+		let li = document.createElement("li");
+		
+		let title = document.createElement("h3");
+		title.innerText = item.word;
+
+		let percent = document.createElement("p");
+		percent.innerText = (item.percent * 100).toFixed(1) + "%";
+
+		li.appendChild(title);
+		li.appendChild(percent);
+		ul.appendChild(li);
+	}
+	
+	while (section2list.firstChild) {
+		section2list.removeChild(section2list.firstChild);
+	}
+
+	section2list.appendChild(ul);
 }
 
 function showTip() {
@@ -164,6 +204,8 @@ async function query_api(text: string[], url: string) {
 			setGreen();
 		}
 	}
+
+	list_of_words = audit.assessment.data.percent_per_string;
 
 	return audit.success;
 }
