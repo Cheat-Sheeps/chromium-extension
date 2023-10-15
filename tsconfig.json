@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "ES2022",
+      "module": "ES2022",
+      "rootDir": "src",
+      "typeRoots": ["node_modules/@types"],
+      "outDir": "dist",
+      "sourceMap": true,
+      "lib": ["es6", "dom"],
+      "esModuleInterop": true,
+      "moduleResolution": "node"
+    },
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
