@@ -24,7 +24,7 @@ const bContinueGreen = document.querySelector(
 	".b-continue-green"
 ) as HTMLElement;
 const bContinueRed = document.querySelector(".b-continue-red") as HTMLElement;
-const loader = document.querySelector(".loader") as HTMLElement;
+const spinner = document.querySelector(".section-2-load") as HTMLElement;
 
 await main();
 
@@ -37,42 +37,41 @@ async function main() {
 		url = tab.url;
 	}
 
-  showTip();
-  showSpinner();
+	showTip();
+	showSpinner();
 	await check_website(getText(), url);
-  hideSpinner();
-  
-  bQuit.addEventListener("click", () => {
-    window.close();
-  });
+	hideSpinner();
 
-  bContinueGreen.addEventListener("click", () => {
-    window.close();
-  });
+	bQuit.addEventListener("click", () => {
+		window.close();
+	});
 
-  bContinueRed.addEventListener("click", () => {
-    window.close();
-  });
+	bContinueGreen.addEventListener("click", () => {
+		window.close();
+	});
+
+	bContinueRed.addEventListener("click", () => {
+		window.close();
+	});
 }
 
 function showSpinner() {
-  section2.style.display = "none";
-  loader.style.display = "flex";
+	section2.style.display = "none";
+	spinner.style.display = "flex";
 }
 
 function hideSpinner() {
-  section2.style.display = "flex";
-  loader.style.display = "none";
+	section2.style.display = "flex";
+	spinner.style.display = "none";
 }
 
-
 function showTip() {
-  let tip = get_random_tip();
-  let tipTitle = document.querySelector(".tipsName") as HTMLElement;
-  let tipBody = document.querySelector(".tipsDescription") as HTMLElement;
+	let tip = get_random_tip();
+	let tipTitle = document.querySelector(".tipsName") as HTMLElement;
+	let tipBody = document.querySelector(".tipsDescription") as HTMLElement;
 
-  tipTitle.innerText = tip.title;
-  tipBody.innerText = tip.body;
+	tipTitle.innerText = tip.title;
+	tipBody.innerText = tip.body;
 }
 
 function getText() {
