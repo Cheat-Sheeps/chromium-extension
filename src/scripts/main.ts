@@ -1,4 +1,5 @@
 import * as Api from "./api";
+import { get_random_tip } from "./tips";
 
 const [tab] = await chrome.tabs.query({
 	active: true,
@@ -27,47 +28,74 @@ const loader = document.querySelector(".loader") as HTMLElement;
 
 await main();
 
+// ---------------------------------------------------------------------------------------------
+
 async function main() {
+	let url: string = "";
 
-  let url: string = "";
+	if (tab.url) {
+		url = tab.url;
+	}
 
-  if (tab.url) {
-    url = tab.url;
-  }
+  showTip();
+  showSpinner();
+	await check_website(getText(), url);
+  hideSpinner();
+  
+  bQuit.addEventListener("click", () => {
+    window.close();
+  });
 
+  bContinueGreen.addEventListener("click", () => {
+    window.close();
+  });
+
+  bContinueRed.addEventListener("click", () => {
+    window.close();
+  });
+}
+
+function showSpinner() {
   section2.style.display = "none";
   loader.style.display = "flex";
-  await check_website(getText(), url);
+}
+
+function hideSpinner() {
   section2.style.display = "flex";
   loader.style.display = "none";
+}
 
+
+function showTip() {
+  let tip = get_random_tip();
+  let tipTitle = document.querySelector(".tipsName") as HTMLElement;
+  let tipBody = document.querySelector(".tipsDescription") as HTMLElement;
+
+  tipTitle.innerText = tip.title;
+  tipBody.innerText = tip.body;
 }
 
 function getText() {
-  let text = "";
+	let text = "";
 
-  for (let query of contentQueries) {
-    text += query.result;
-  }
+	for (let query of contentQueries) {
+		text += query.result;
+	}
 
-  text = text.replace(
-    /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gm,
-    ""
-  );
+	text = text.replace(
+		/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gm,
+		""
+	);
 
-  return text;
+	return text;
 }
 
 async function check_website(text: string, url: string) {
 	const audit = await Api.auditWebsite(text, url);
 
-	
-
-	// console.log(text, display, audit)
 	if (!audit.success) {
 		section2.style.display = "none";
 	} else {
-		console.log(section2);
 		section2.style.display = "flex";
 		let percent = (audit.assessment * 100).toFixed(1);
 		percentage.innerText = percent + "%";
