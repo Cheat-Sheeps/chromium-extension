@@ -123,8 +123,10 @@ function getText() {
 }
 
 async function query_api(text: string[], url: string) {
-	console.log(text);
-	const audit = await Api.auditWebsite(text, url);
+	let text_to_send = text.slice(0, 100);	
+	console.log(text_to_send);
+
+	const audit = await Api.auditWebsite(text_to_send, url);
 
 	if (!audit.success) {
 		section2.style.display = "none";
@@ -132,53 +134,67 @@ async function query_api(text: string[], url: string) {
 		section2.style.display = "flex";
 
 		let assessment = audit.assessment.data.result.map((arr) => arr[0]);
-
-		let median = 0;
 		let sorted = assessment.sort((a, b) => a - b);
-		let len = sorted.length;
-		if (len % 2 === 0) {
-			median = (sorted[len / 2 - 1] + sorted[len / 2]) / 2;
-		} else {
-			median = sorted[(len - 1) / 2];
-		}
+		let median = audit.assessment.data.median;
 
 		console.log("median: " + median);
 		console.log(
 			"average: " +
 				assessment.reduce((a, b) => a + b, 0) / assessment.length
 		);
-		console.log(assessment);
+		console.log(sorted);
 
 		let percent = (median * 100).toFixed(1);
 		percentage.innerText = percent + "%";
 		percentage_bar.style.width = percent + "%";
 
 		if (median > 0.5 && median < 0.75) {
-			percentage_bar.style.backgroundColor = "#FFC85E";
-			percentage.style.color = "#FFC85E";
-			icon.setAttribute("src", "yellow.svg");
-
-			bQuit.style.display = "inline-block";
-			bContinueGreen.style.display = "none";
-			bContinueRed.style.display = "inline-block";
+			setYellow();
 		} else if (median > 0.75) {
-			percentage_bar.style.backgroundColor = "#FF8086";
-			percentage.style.color = "#FF8086";
-			icon.setAttribute("src", "red.svg");
-
-			bQuit.style.display = "inline-block";
-			bContinueGreen.style.display = "none";
-			bContinueRed.style.display = "inline-block";
+			setRed();
 		} else {
-			percentage_bar.style.backgroundColor = "#5EAD8F";
-			percentage.style.color = "#5EAD8F";
-			icon.setAttribute("src", "green.svg");
+			setGreen();
+		}
 
-			bQuit.style.display = "none";
-			bContinueGreen.style.display = "inline-block";
-			bContinueRed.style.display = "none";
+		if (audit.assessment.data.is_blacklisted) {
+			percentage.innerText = "Blacklisted (" + percent + "%)";
+			setRed();
+		} else if (audit.assessment.data.is_whitelisted) {
+			percentage.innerText = "Whitelisted (" + percent + "%)";
+			setGreen();
 		}
 	}
 
 	return audit.success;
 }
+
+function setGreen() {
+	percentage_bar.style.backgroundColor = "#5EAD8F";
+	percentage.style.color = "#5EAD8F";
+	icon.setAttribute("src", "green.svg");
+
+	bQuit.style.display = "none";
+	bContinueGreen.style.display = "inline-block";
+	bContinueRed.style.display = "none";
+}
+
+function setYellow() {
+	percentage_bar.style.backgroundColor = "#FFC85E";
+	percentage.style.color = "#FFC85E";
+	icon.setAttribute("src", "yellow.svg");
+
+	bQuit.style.display = "inline-block";
+	bContinueGreen.style.display = "none";
+	bContinueRed.style.display = "inline-block";
+}
+
+function setRed() {
+	percentage_bar.style.backgroundColor = "#FF8086";
+	percentage.style.color = "#FF8086";
+	icon.setAttribute("src", "red.svg");
+
+	bQuit.style.display = "inline-block";
+	bContinueGreen.style.display = "none";
+	bContinueRed.style.display = "inline-block";
+}
+

@@ -44,6 +44,8 @@ async function auditWebsite(pageContent: string[], url: string) {
                 result: number[][];
                 is_phishing: boolean;
                 is_blacklisted: boolean;
+				is_whitelisted: boolean;
+				median: number;
             }
         },
 		url: url,
