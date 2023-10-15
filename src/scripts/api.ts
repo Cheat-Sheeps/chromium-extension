@@ -1,9 +1,9 @@
-async function auditWebsite(pageContent: string, url: string) {
+async function auditWebsite(pageContent: string[], url: string) {
 	let response;
 
 	try {
 		let body = JSON.stringify({
-			words: [pageContent],
+			words: pageContent,
 			url: url,
 		});
 
@@ -34,12 +34,9 @@ async function auditWebsite(pageContent: string, url: string) {
 	}
 
 	let json = await response.json();
-
-	console.log(json);
-
 	return {
 		success: true,
-		assessment: json,
+		assessment: json as number[][],
 		url: url,
 	};
 }

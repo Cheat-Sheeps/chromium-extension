@@ -100,32 +100,63 @@ function showTip() {
 }
 
 function getText() {
-	let text = "";
+	let text: string[] = [];
 
-	for (let query of contentQueries) {
-		text += query.result;
-	}
-
-	text = text.replace(
+	let result = contentQueries[0].result.replace(
 		/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gm,
 		""
 	);
 
+	// remove punctuation
+	result = result.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+
+	for (let line of result.split("\n")) {
+		line = line.trim();
+    line = line.replace(/[^\w\s]/gi, "");
+
+		if (line.split(" ").length > 5) {
+			text.push(line);
+		}
+	}
+
 	return text;
 }
 
-async function query_api(text: string, url: string) {
+async function query_api(text: string[], url: string) {
+	console.log(text);
 	const audit = await Api.auditWebsite(text, url);
 
 	if (!audit.success) {
 		section2.style.display = "none";
 	} else {
 		section2.style.display = "flex";
-		let percent = (audit.assessment * 100).toFixed(1);
+
+		let assessment = audit.assessment.map((arr) => arr[0]);
+
+		// we receive an array of arrays, but we only care about the first element
+		// which is the probability of the text being malicious
+		// figure out the median of the array and use that as the probability
+		let median = 0;
+		let sorted = assessment.sort((a, b) => a - b);
+		let len = sorted.length;
+		if (len % 2 === 0) {
+			median = (sorted[len / 2 - 1] + sorted[len / 2]) / 2;
+		} else {
+			median = sorted[(len - 1) / 2];
+		}
+
+		console.log("median: " + median);
+		console.log(
+			"average: " +
+				assessment.reduce((a, b) => a + b, 0) / assessment.length
+		);
+		console.log(assessment);
+
+		let percent = (median * 100).toFixed(1);
 		percentage.innerText = percent + "%";
 		percentage_bar.style.width = percent + "%";
 
-		if (audit.assessment > 0.5 && audit.assessment < 0.75) {
+		if (median > 0.5 && median < 0.75) {
 			percentage_bar.style.backgroundColor = "#FFC85E";
 			percentage.style.color = "#FFC85E";
 			icon.setAttribute("src", "yellow.svg");
@@ -133,7 +164,7 @@ async function query_api(text: string, url: string) {
 			bQuit.style.display = "inline-block";
 			bContinueGreen.style.display = "none";
 			bContinueRed.style.display = "inline-block";
-		} else if (audit.assessment > 0.75) {
+		} else if (median > 0.75) {
 			percentage_bar.style.backgroundColor = "#FF8086";
 			percentage.style.color = "#FF8086";
 			icon.setAttribute("src", "red.svg");
