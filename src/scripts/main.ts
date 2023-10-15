@@ -131,11 +131,8 @@ async function query_api(text: string[], url: string) {
 	} else {
 		section2.style.display = "flex";
 
-		let assessment = audit.assessment.map((arr) => arr[0]);
+		let assessment = audit.assessment.data.result.map((arr) => arr[0]);
 
-		// we receive an array of arrays, but we only care about the first element
-		// which is the probability of the text being malicious
-		// figure out the median of the array and use that as the probability
 		let median = 0;
 		let sorted = assessment.sort((a, b) => a - b);
 		let len = sorted.length;

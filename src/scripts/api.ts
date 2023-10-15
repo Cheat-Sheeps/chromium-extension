@@ -34,9 +34,18 @@ async function auditWebsite(pageContent: string[], url: string) {
 	}
 
 	let json = await response.json();
+
+    console.log(json);
+
 	return {
 		success: true,
-		assessment: json as number[][],
+		assessment: json as {
+            data: {
+                result: number[][];
+                is_phishing: boolean;
+                is_blacklisted: boolean;
+            }
+        },
 		url: url,
 	};
 }
